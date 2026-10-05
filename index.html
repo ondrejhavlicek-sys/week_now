@@ -9,7 +9,8 @@
   <link rel="icon" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23b6ff3c'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <script>try{var d=document.documentElement,t=localStorage.getItem("theme"),y=localStorage.getItem("style");if(t)d.dataset.theme=t;d.dataset.style=y||(matchMedia("(prefers-contrast: more)").matches?"clear":"vibe")}catch(e){}</script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,19 +22,21 @@
     <a class="logo" href="./" aria-label="WeekNow home">week<b>now</b><i>●</i></a>
     <div class="top-actions">
       <span class="chip live" title="Updates every second"><span class="dot"></span><span id="clock">--:--:--</span></span>
-      <button class="icon-btn" id="themeBtn" aria-label="Toggle light / dark theme">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <button class="icon-btn style-btn" id="styleBtn" aria-pressed="false"><span id="styleTxt">Simple view</span></button>
+      <button class="icon-btn" id="themeBtn" aria-label="Switch between light and dark mode">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span class="lbl" id="themeTxt">Dark mode</span>
       </button>
     </div>
   </header>
 
   <main>
     <section class="hero" aria-labelledby="weekLabel">
+      <p class="today-line" id="todayLine"></p>
       <p class="eyebrow" id="weekLabel"><span id="relLabel">It's currently</span> week</p>
       <div class="big-wrap">
-        <button class="nav-btn" id="prev" aria-label="Previous week">‹</button>
+        <button class="nav-btn" id="prev" aria-label="Previous week"><span aria-hidden="true">‹</span><span class="lbl">Previous week</span></button>
         <h1 class="big" id="weekNum" aria-live="polite">--</h1>
-        <button class="nav-btn" id="next" aria-label="Next week">›</button>
+        <button class="nav-btn" id="next" aria-label="Next week"><span class="lbl">Next week</span><span aria-hidden="true">›</span></button>
       </div>
       <p class="range" id="range">…</p>
       <div class="hero-actions">

@@ -35,18 +35,37 @@
   let offset = 0; // weeks relative to the current one
   let lastWeekKey = "";
 
-  /* ---- theme ---- */
+  /* ---- theme + style ---- */
   const root = document.documentElement;
   try {
     const saved = localStorage.getItem("theme");
     if (saved) root.dataset.theme = saved;
     else if (matchMedia("(prefers-color-scheme: light)").matches) root.dataset.theme = "light";
   } catch (_) {}
+  function syncLabels() {
+    const clear = root.dataset.style === "clear";
+    $("styleTxt").textContent = clear ? "Colorful view" : "Simple view";
+    $("styleBtn").setAttribute("aria-pressed", clear);
+    $("themeTxt").textContent = root.dataset.theme === "dark" ? "Light mode" : "Dark mode";
+    $("themeBtn").setAttribute("aria-label", root.dataset.theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+  }
+  try {
+    const st = localStorage.getItem("style");
+    root.dataset.style = st || (matchMedia("(prefers-contrast: more)").matches ? "clear" : "vibe");
+  } catch (_) { root.dataset.style = "vibe"; }
   $("themeBtn").addEventListener("click", () => {
     const next = root.dataset.theme === "dark" ? "light" : "dark";
     root.dataset.theme = next;
     try { localStorage.setItem("theme", next); } catch (_) {}
+    syncLabels();
   });
+  $("styleBtn").addEventListener("click", () => {
+    const next = root.dataset.style === "clear" ? "vibe" : "clear";
+    root.dataset.style = next;
+    try { localStorage.setItem("style", next); } catch (_) {}
+    syncLabels();
+  });
+  syncLabels();
 
   /* ---- toast ---- */
   let toastT;
@@ -69,7 +88,7 @@
     $("strip").innerHTML = DAYS.map((name, i) => {
       const d = addDays(monday, i);
       const cls = ["day", i >= 5 ? "weekend" : "", +d === +today ? "today" : "", d < today ? "past" : ""].join(" ");
-      return `<div class="${cls}" ${+d === +today ? 'aria-current="date"' : ""}><span>${name}</span><strong>${d.getDate()}</strong></div>`;
+      return `<div class="${cls}" ${+d === +today ? 'aria-current="date"' : ""}><span>${name}</span><strong>${d.getDate()}</strong>${+d === +today ? "<em>Today</em>" : ""}</div>`;
     }).join("");
   }
 
@@ -93,6 +112,7 @@
       setFavicon(week);
       renderStrip(monday, today);
     }
+    $("todayLine").textContent = "Today is " + fmt(now, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
     $("relLabel").textContent = offset === 0 ? "It's currently" : offset > 0 ? `${offset} wk${offset > 1 ? "s" : ""} from now:` : `${-offset} wk${offset < -1 ? "s" : ""} ago:`;
     $("todayBtn").hidden = offset === 0;
     $("vibe").textContent = offset === 0 ? VIBES[mondayIndex(today)] : "Time travelling 🕰️ — hit “back” to return to now.";
