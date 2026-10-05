@@ -1,0 +1,8 @@
+name = "ondraux-weeknow"
+compatibility_date = "2026-10-01"
+account_id = "2187561286f986e4fde528d7b5127d5b"
+workers_dev = false
+routes = [{ pattern = "weeknow.ondraux.kosik.design", custom_domain = true }]
+
+[assets]
+directory = "./public"
