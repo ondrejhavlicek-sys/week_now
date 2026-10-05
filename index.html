@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>WeekNow – what week is it?</title>
+  <meta name="description" content="The current ISO week number, plus day of year, year progress and a live countdown to the weekend.">
+  <meta name="theme-color" content="#0b0714">
+  <link rel="icon" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23b6ff3c'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+  </div>
+
+  <header class="top">
+    <a class="logo" href="./" aria-label="WeekNow home">week<b>now</b><i>●</i></a>
+    <div class="top-actions">
+      <span class="chip live" title="Updates every second"><span class="dot"></span><span id="clock">--:--:--</span></span>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle light / dark theme">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="weekLabel">
+      <p class="eyebrow" id="weekLabel"><span id="relLabel">It's currently</span> week</p>
+      <div class="big-wrap">
+        <button class="nav-btn" id="prev" aria-label="Previous week">‹</button>
+        <h1 class="big" id="weekNum" aria-live="polite">--</h1>
+        <button class="nav-btn" id="next" aria-label="Next week">›</button>
+      </div>
+      <p class="range" id="range">…</p>
+      <div class="hero-actions">
+        <button class="btn primary" id="copyBtn"><span id="copyTxt">Copy “W-- · ----”</span></button>
+        <button class="btn ghost" id="todayBtn" hidden>↺ Back to this week</button>
+      </div>
+      <p class="vibe" id="vibe"></p>
+    </section>
+
+    <section class="strip" aria-label="Days of the week" id="strip"></section>
+
+    <section class="bento" aria-label="Date and time stats">
+      <article class="card c-year">
+        <h2>Year progress</h2>
+        <p class="stat"><span id="yearPct">0</span><small>%</small></p>
+        <div class="bar" role="progressbar" aria-label="Year progress" aria-valuemin="0" aria-valuemax="100" id="yearBar"><span></span></div>
+        <p class="sub" id="yearSub"></p>
+      </article>
+
+      <article class="card c-weekend">
+        <h2 id="wkTitle">Weekend loading in</h2>
+        <p class="mono" id="weekend">0d 00:00:00</p>
+        <p class="sub" id="weekendSub"></p>
+      </article>
+
+      <article class="card c-doy">
+        <h2>Day of year</h2>
+        <p class="stat"><span id="doy">0</span><small>/<span id="diy">365</span></small></p>
+        <p class="sub" id="doySub"></p>
+      </article>
+
+      <article class="card c-quarter">
+        <h2>Quarter</h2>
+        <p class="stat"><span id="quarter">Q1</span></p>
+        <div class="dots" id="qDots" aria-hidden="true"></div>
+      </article>
+
+      <article class="card c-left">
+        <h2>Weeks left in year</h2>
+        <p class="stat"><span id="weeksLeft">0</span></p>
+        <p class="sub">Make 'em count 🫡</p>
+      </article>
+
+      <article class="card c-month">
+        <h2 id="monthName">Month</h2>
+        <p class="stat"><span id="monthPct">0</span><small>%</small></p>
+        <div class="bar" id="monthBar"><span></span></div>
+        <p class="sub" id="monthSub"></p>
+      </article>
+
+      <article class="card c-tz">
+        <h2>Your timezone</h2>
+        <p class="tz" id="tz">—</p>
+        <p class="sub" id="utc"></p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>Weeks follow <strong>ISO 8601</strong>: they start on Monday and week 1 contains the first Thursday of the year. Tip: use <kbd>←</kbd> <kbd>→</kbd> to browse weeks.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
